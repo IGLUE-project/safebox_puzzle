@@ -32,8 +32,6 @@ const  SafeBoxDial = ( props ) => {
     const handleMouseUp = () => {
         if (props.checking || props.isReseting ) return ;
         setIsMouseDown(false); // Indica que el mouse ya no está presionado
-        //reset(); // Reinicia la rotación //Poniendolo aqui, hace efecto de teelfono de dial
-        //Para poder poner -55 si va contrarreloj o 30 si va a favor
         props.setSolutionArray((sol) => [...sol, (rotationDirection === "clockwise" ? String(props.rotationAngle/6) : String('-'+props.rotationAngle/6))]);
         setRotationDirection(''); //Reinicia la direccion de rotacion
     };
@@ -86,12 +84,10 @@ const  SafeBoxDial = ( props ) => {
 
     return(
         <div className='lockContainer' style={{  
-           // backgroundImage: 'url("' + appSettings.backgroundLock + '")',
             width: props.boxWidth,//Math.min(props.boxWidth, props.boxHeight) * 0.7, 
             height: props.boxHeight, //Math.min(props.boxWidth, props.boxHeight) * 0.7,
             display: "flex", alignItems: "center", justifyContent: "center",
             position: "relative", // Necesario para el posicionamiento absoluto del dial
-            zIndex:1,
           zIndex: 0
         }}
         
@@ -103,17 +99,13 @@ const  SafeBoxDial = ( props ) => {
             <div id="lock" style={{ 
               backgroundImage: 'url("' + appSettings.backgroundDial + '")',
               height:props.boxHeight*0.53,
-              width: props.boxWidth*0.53,
-              //zIndex: 5,//props.styles.dial_text_zIndex,
-              //width: Math.min(props.boxWidth, props.boxHeight) * props.styles.dial_size, // Usa el menor valor para asegurar que sea cuadrado
-              //height: Math.min(props.boxWidth, props.boxHeight) * props.styles.dial_size, // Usa el menor valor para asegurar que sea cuadrado
-              //marginLeft: props.boxWidth / 2 * 0.225,
+              width: props.boxWidth*0.53,              
               transform: `rotate(${props.rotationAngle}deg)`, // Rotación dinámica.
-              transition: props.isReseting ? "transform 2.5s ease" : "none", // Transición suave solo durante el reset
+              transition: props.isReseting ? "transform 2.5s ease" : "none", // Transición suave solo durante el reset              
             }}></div>
-           {/*<p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} 
-              style={{color: props.styles.dial_text_color, fontSize: props.styles.dial_text_size, zIndex:5}}
-              >{props.rotationAngle/6}</p>      */}
+            {appSettings.skin === "FUTURISTIC" && props.light !== "off" &&
+            (props.light === "ok" ? <div className='lockFuture' style={{ zIndex:4 , backgroundColor: '#3bff77', width: props.boxWidth*0.43, height: props.boxHeight*0.53, borderRadius: '50%'}}></div> 
+            : <div className='lockFuture' style={{ zIndex:4 , backgroundColor: '#fe3a43', width: props.boxWidth*0.43, height: props.boxHeight*0.53, borderRadius: '50%'}}></div>)}
               <audio id="audio_wheel" src={appSettings.soundDial} autostart="false" preload="auto" />    
         </div>
     );

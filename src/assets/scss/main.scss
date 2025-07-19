@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
 div#screen_main {
 	background-position: center;
 	background-repeat: no-repeat;
@@ -6,74 +7,9 @@ div#screen_main {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	//z-index: 1;
 	position: relative;
 }
 
-div#keypad {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-around;
-}
-
-div#keypad div.row {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
-}
-
-div.boxButton {
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: contain;
-	display: flex;
-	color: white;
-}
-
-div.boxButton:active {
-	transform: scale(0.9);
-}
-
-div.retro div.boxButton {
-  transition: transform 0.4s ease;
-}
-
-div.retro div.boxButton:active {
-	transform: scale(0.85);
-}
-
-div.boxButton div {
-	display: flex;
-	justify-content: center;
-	align-content: center;
-	flex-direction: column;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	font-size: 4vmin;
-	font-family: "Consolas", "Roboto", sans-serif;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none; 
-  -moz-user-select: none;
-  -ms-user-select: none; 
-  user-select: none;
-  cursor: pointer; 
-}
-
-div.boxButton div img.symbol {
-  align-self: center;
-	max-height: 55%;
-  max-width: 55%;
-}
-
-div.retro div.boxButton div {
-  padding-top: 0.5px;
-  font-size: 3.5vmin;
-  font-family: 'Retro';
-  font-weight: bold;
-}
 
 div.boxLight {
 	position: absolute;
@@ -100,27 +36,20 @@ div.retro div.boxLight {
 	background-size: contain;
 	display: flex;
 	position: absolute;
-	//pointer-events: none;
-	//z-index: -1;
-	//top: 21%;
-	transform: (-50%, - 50px); // Centra el lock en la pantalla
-	//z-index: 1;
-	//position: relative;
+	transform: (-50%, - 50px); 
+	
+
 }
 
+
 div#lock{
-	//background-image: url("../images/lock.png");
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
 	display: flex;
 	position: absolute;
-	//position: relative;
-	pointer-events: none;
-	//position: absolute;
-	//z-index: 2;
-	//top: 21%;
-	//z-index: -500;
+	//pointer-events: none;
+	cursor: pointer;
 	transform: (-50%, - 50px); // Centra el lock en la pantalla
 }
 div.lockFuture{
@@ -130,41 +59,19 @@ div.lockFuture{
 	display: flex;
 	position: absolute;
 	pointer-events: none;
-	//z-index: -1;
-	//top: 21%;
 	transform: (-50%, - 50px); // Centra el lock en la pantalla
 }
+
 
 p#rotationNum{
 	position: absolute;
 	z-index: 10;
 	top: 50%; // Centra verticalmente
-	left: 50%; // Centra horizontalmente
-	//font-family: Verdana, Geneva, Tahoma, sans-serif;
+	left: 50%; 
 	transform: translate(-50%, -50%); // Ajusta el centrado
-	margin: 0; // Elimina el margen del <p>
-	pointer-events: none; // Permite que los eventos del mouse pasen a través del <p>
-	//color: black; // Cambia el color del texto
+	margin: 0; 
+	pointer-events: none; 
 	user-select: none; // Evita que el texto sea seleccionable
-	font-style: bold; // Aplica el estilo en negrita
-	//font-size : 13vmin; // Cambia el tamaño de la fuente
-	//z-index: 1;
-}
-
-.blinking-dots span {
-  opacity: 0.2;
-  animation: blink 1.4s infinite both;
-  font-size: 2em;
-}
-
-.blinking-dots span:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.blinking-dots span:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-@keyframes blink {
-  0%, 80%, 100% { opacity: 0.2; }
-  40% { opacity: 1; }
+	font-style: bold; 
+	font-family: sans-serif;
 }

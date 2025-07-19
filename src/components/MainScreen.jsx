@@ -6,7 +6,6 @@ import SafeBoxDial from './SafeBoxDial.jsx';
 const MainScreen = (props) => {
   const { escapp, appSettings, Utils, I18n } = useContext(GlobalContext);
   const [solutionArray, setSolutionArray] = useState([]); // Array para guardar la solución
-  const [currentSolution, setCurrentSolution] = useState([]);
   const [processingSolution, setProcessingSolution] = useState(false);
   const [light, setLight] = useState("off");
   const [containerWidth, setContainerWidth] = useState(0);//
@@ -99,47 +98,13 @@ const MainScreen = (props) => {
     setLightTop(_lightTop);
   }
 
-  const onClickButton = (value) => {
-    if (processingSolution) {
-      return;
-    }
-    Utils.log("onClickButton", value);
-    setProcessingSolution(true);
 
-    const shortBeep = document.getElementById("audio_beep");
-    shortBeep.pause();
-    shortBeep.currentTime = 0;
-    shortBeep.play();
-
-    setTimeout(() => {
-      currentSolution.push(value);
-      if (currentSolution.length < appSettings.solutionLength) {
-        setCurrentSolution(currentSolution);
-        setProcessingSolution(false);
-      } else {
-        const solution = currentSolution.join((["COLORS","SYMBOLS"].indexOf(appSettings.keysType) !== -1) ? ";" : "");
-        setCurrentSolution([]);
-        Utils.log("Check solution", solution);
-        escapp.checkNextPuzzle(solution, {}, (success, erState) => {
-          Utils.log("Check solution Escapp response", success, erState);
-          try {
-            setTimeout(() => {
-              changeBoxLight(success, solution);
-            }, 700);
-          } catch(e){
-            Utils.log("Error in checkNextPuzzle",e);
-          }
-        });
-      }
-    }, 300);
-  }
 
   const checkSolution = () => {
     setProcessingSolution(true);
     Utils.log("Check solution", solutionArray);
     const solution = solutionArray.join(';');
-    reset(); // Reinicia el lock
-    console.log("Check solution", solution);
+    reset(); // Reinicia el lock    
     escapp.checkNextPuzzle(solution, {}, (success, erState) => {
           Utils.log("Check solution Escapp response", success, erState);
           try {
@@ -195,7 +160,7 @@ const MainScreen = (props) => {
     }, 2500);
   }
 
-  useEffect(() => { // Comprueba si se ha alcanzado el número máximo de intentos (En local y en API)           
+  useEffect(() => {           
       solutionArray.length >= appSettings.solutionLength && checkSolution();
   }, [solutionArray]);
 
@@ -207,8 +172,7 @@ const MainScreen = (props) => {
           display: "flex", alignItems: "center", 
           justifyContent: "center", flexDirection: "column"
         }}>
-        <SafeBoxDial 
-              boxWidth={boxWidth} boxHeight={boxHeight} checking={processingSolution} 
+        <SafeBoxDial boxWidth={boxWidth} boxHeight={boxHeight} checking={processingSolution} 
               rotationAngle={rotationAngle} setRotationAngle={setRotationAngle}
               setSolutionArray={setSolutionArray} isReseting={isReseting} light={light}/>
               
@@ -222,13 +186,14 @@ const MainScreen = (props) => {
       </div>
 
       {appSettings.lightBack==="true" && <div className='lockFuture' style={{ zIndex:4 , backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, height: containerHeight,}}></div>}
-      <p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} 
-            style={{color: appSettings.dialTextColor, fontSize:appSettings.dialTextSize, zIndex:5}}>
-            {(appSettings.skin === "FUTURISTIC" && light !== "off") 
-              ? (light === "ok" ? <svg xmlns="http://www.w3.org/2000/svg" height={appSettings.dialTextSize} viewBox="0 -960 960 960" width={appSettings.dialTextSize} fill="#3bff77"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> 
-                : <svg xmlns="http://www.w3.org/2000/svg" height={appSettings.dialTextSize} viewBox="0 -960 960 960" width={appSettings.dialTextSize} fill="#fe3a43"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>)
-              : rotationAngle/6}
-            </p> 
+      <p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} style={{color: appSettings.dialTextColor, fontSize:containerWidth*appSettings.dialTextSize+"px", zIndex:5, 
+        fontFamily:appSettings.skin !== "STANDARD" && (appSettings.skin === "RETRO" ?"Winky Rough" : "Orbitron"), top: appSettings.skin === "FUTURISTIC" ? "49.2%" : "50%"}}> 
+        {(appSettings.skin === "FUTURISTIC" && light !== "off") 
+          ? (light === "ok" ? 
+            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"35%"}} height={containerWidth*appSettings.dialTextSize+"px"} viewBox="0 -960 960 960" width={containerWidth*appSettings.dialTextSize+"px"} fill="#3bff77"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> :
+            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"35%"}}  height={containerWidth*appSettings.dialTextSize+"px"} viewBox="0 -960 960 960" width={containerWidth*appSettings.dialTextSize+"px"} fill="#fe3a43"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>)
+          : rotationAngle/6} 
+      </p> 
  
     </div>);
 };

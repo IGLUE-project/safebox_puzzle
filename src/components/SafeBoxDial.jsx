@@ -84,7 +84,7 @@ const  SafeBoxDial = ( props ) => {
             onMouseDown={handleMouseDown} onMouseMove={handleMouseMove}>          
             <div id="lock" style={{ backgroundImage: 'url("' + appSettings.backgroundDial + '")',
               height:props.boxHeight*0.53, width: props.boxWidth*0.53, transform: `rotate(${props.rotationAngle}deg)`, 
-              transition: props.isReseting ? "transform 2.5s ease" : "none",}}/>
+              transition: props.isReseting ? (appSettings.skin !== "FUTURISTIC" ? "transform 2.5s ease" : "none") : "none",}}/>
             {appSettings.skin === "FUTURISTIC" && props.light !== "off" &&
             (props.light === "ok" ? 
               <div className='lockFuture' style={{ zIndex:4 , backgroundColor: '#3bff77', width: props.boxWidth*0.43, height: props.boxHeight*0.53, borderRadius: '50%'}}></div> 

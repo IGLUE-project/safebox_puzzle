@@ -32,7 +32,8 @@ export const SKIN_SETTINGS_RETRO = {
   soundOk: "sounds/solution_ok_retro.wav",
   dialTextSize: "0.06", // Font size for the dial text
   dialTextColor: "#FFFFFF", // Color for the dial text
-  lightBack: "false"
+  lightBack: "false",
+  blackBackgroundSize: 0.08,
 };
 
 export const SKIN_SETTINGS_FUTURISTIC = {

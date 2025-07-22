@@ -104,7 +104,7 @@ const MainScreen = (props) => {
     setProcessingSolution(true);
     Utils.log("Check solution", solutionArray);
     const solution = solutionArray.join(';');
-    reset(); // Reinicia el lock    
+    //reset(); // Reinicia el lock    
     escapp.checkNextPuzzle(solution, {}, (success, erState) => {
           Utils.log("Check solution Escapp response", success, erState);
           try {
@@ -186,6 +186,7 @@ const MainScreen = (props) => {
       </div>
 
       {appSettings.lightBack==="true" && <div className='lockFuture' style={{ zIndex:4 , backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, height: containerHeight,}}></div>}
+      <div className='retroBlackBackground' style={{width: containerWidth*appSettings.blackBackgroundSize+"px", height: containerWidth*appSettings.blackBackgroundSize+"px", }}/>
       <p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} style={{color: appSettings.dialTextColor, fontSize:containerWidth*appSettings.dialTextSize+"px", zIndex:5, 
         fontFamily:appSettings.skin !== "STANDARD" && (appSettings.skin === "RETRO" ?"Winky Rough" : "Orbitron"), top: appSettings.skin === "FUTURISTIC" ? "49.2%" : "50%"}}> 
         {(appSettings.skin === "FUTURISTIC" && light !== "off") 

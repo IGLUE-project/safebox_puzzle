@@ -2,7 +2,8 @@ export const DEFAULT_APP_SETTINGS = {
   skin: "STANDARD",
   actionAfterSolve: "NONE",
   message: undefined,
-  background: "images/standard/background_standard.png",
+  backgroundColor: "#333",
+  backgroundSafebox: "images/standard/background_safebox_standard.png",
   backgroundLock : "images/standard/background_lock_standard.png",
   backgroundDial: "images/standard/dial_standard.png",
   backgroundMessage: "images/standard/background_message_standard.png",
@@ -15,7 +16,7 @@ export const DEFAULT_APP_SETTINGS = {
 };
 
 export const SKIN_SETTINGS_RETRO = {
-  background: "images/retro/background_retro.png",
+  backgroundSafebox: "images/retro/background_safebox_retro.png",
   backgroundLock : "images/retro/background_lock_retro.png",
   backgroundDial: "images/retro/dial_retro.png",
   backgroundMessage: "images/retro/background_message_retro.png",
@@ -28,7 +29,7 @@ export const SKIN_SETTINGS_RETRO = {
 };
 
 export const SKIN_SETTINGS_FUTURISTIC = {
-  background: "images/futuristic/background_futuristic.png",
+  backgroundSafebox: "images/futuristic/background_safebox_futuristic.png",
   backgroundLock : "images/futuristic/background_lock_futuristic.png",
   backgroundDial: "images/futuristic/dial_futuristic.png",
   backgroundMessage: "images/futuristic/background_message_futuristic.png",

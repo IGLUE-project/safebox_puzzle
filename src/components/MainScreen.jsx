@@ -142,12 +142,13 @@ const MainScreen = (props) => {
     audio.play();
   }
 
-  //Pone la imagen del fondo
-  let backgroundImage = 'url("' + appSettings.background + '")';
-  if(appSettings.background && appSettings.background !== "NONE"){
-    backgroundImage += ', url("' + appSettings.background + '")';
-  }
-
+  //Background
+  let backgroundImage = 'url("' + appSettings.backgroundSafebox + '")';
+  // Custom background not available for safebox puzzles
+  // if(appSettings.background && typeof appSettings.background !== "undefined" && appSettings.background !== "NONE"){
+  //   backgroundImage += ', url("' + appSettings.background + '")';
+  // }
+  
   const  reset = () =>{
     setIsReseting(true);
     setRotationAngle(0); // Reinicia el ángulo de rotación
@@ -157,12 +158,12 @@ const MainScreen = (props) => {
     }, 2500);
   }
 
-  useEffect(() => {           
+  useEffect(() => {        
       solutionArray.length >= appSettings.solutionLength && checkSolution();
   }, [solutionArray]);
 
   return (
-    <div id="screen_main" className={"screen_content"} style={{ backgroundImage: backgroundImage }}>
+    <div id="screen_main" className={"screen_content"} style={{ backgroundImage: backgroundImage, backgroundColor: appSettings.backgroundColor }}>
       <div id="lockContainer" className="lockContainer" 
         style={{backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, 
           height: containerHeight, marginTop: containerMarginTop, marginLeft: containerMarginLeft ,

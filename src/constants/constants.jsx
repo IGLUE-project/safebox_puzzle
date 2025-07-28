@@ -2,21 +2,16 @@ export const DEFAULT_APP_SETTINGS = {
   skin: "STANDARD",
   actionAfterSolve: "NONE",
   message: undefined,
-  background: "images/standard/background.png",
+  background: "images/standard/background_standard.png",
   backgroundLock : "images/standard/background_lock_standard.png",
-  backgroundDial: "images/standard/dial_classic.png",
-  backgroundMessage: "images/standard/background_message.png",
-  imageLightOff: "images/standard/light_off.png",
-  imageLightNok: "images/standard/light_nok.png",
-  imageLightOk: "images/standard/light_ok.png",
+  backgroundDial: "images/standard/dial_standard.png",
+  backgroundMessage: "images/standard/background_message_standard.png",
+  imageLightOff: "images/standard/light_off_standard.png",
+  imageLightNok: "images/standard/light_nok_standard.png",
+  imageLightOk: "images/standard/light_ok_standard.png",
   soundNok: "sounds/solution_nok.mp3",
   soundOk: "sounds/solution_ok.mp3",
   soundDial: "sounds/spin.wav",
-  dialWidth: 0.7, // Relative size of the dial compared to the box width
-  dialHeight: 0.7, // Relative size of the dial compared to the box height
-  dialTextSize: "0.1", // Font size for the dial text
-  dialTextColor: "#000000", // Color for the dial text
-  lightBack: "false", // Controls whether to show the image behind the dial frame
 };
 
 export const SKIN_SETTINGS_RETRO = {
@@ -30,10 +25,6 @@ export const SKIN_SETTINGS_RETRO = {
   soundDial: "sounds/spin_retro.wav",
   soundNok: "sounds/solution_nok_retro.wav",
   soundOk: "sounds/solution_ok_retro.wav",
-  dialTextSize: "0.06", // Font size for the dial text
-  dialTextColor: "#FFFFFF", // Color for the dial text
-  lightBack: "false",
-  blackBackgroundSize: 0.08,
 };
 
 export const SKIN_SETTINGS_FUTURISTIC = {
@@ -45,9 +36,6 @@ export const SKIN_SETTINGS_FUTURISTIC = {
   imageLightNok: "images/futuristic/light_nok_futuristic.png",
   imageLightOk: "images/futuristic/light_ok_futuristic.png",
   soundNok: "sounds/solution_nok_futuristic.wav",
-  dialTextSize: "0.09", // Font size for the dial text
-  dialTextColor: "#0fbdfd", // Color for the dial text
-  lightBack:"true", //Para controlar si se muestra la imagen tras el marco del dial
 };
 
 export const ESCAPP_CLIENT_SETTINGS = {

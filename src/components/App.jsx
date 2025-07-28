@@ -45,6 +45,9 @@ export default function App() {
     if(typeof _appSettings !== "object"){
       _appSettings = {};
     }
+    if((typeof _appSettings.skin === "undefined")&&(typeof DEFAULT_APP_SETTINGS.skin === "string")){
+      _appSettings.skin = DEFAULT_APP_SETTINGS.skin;
+    }
 
     let skinSettings;
     switch(_appSettings.skin){
@@ -67,28 +70,6 @@ export default function App() {
       _appSettings.actionAfterSolve = DEFAULT_APP_SETTINGS.actionAfterSolve;
     }
 
-    switch(_appSettings.keysType){
-      case "LETTERS":
-        _appSettings.keys = _appSettings.letters;
-        _appSettings.backgroundKeys = new Array(12).fill(_appSettings.backgroundKey);
-        break;
-      case "COLORS":
-        _appSettings.keys = _appSettings.colors;
-        _appSettings.backgroundKeys = _appSettings.coloredBackgroundKeys;
-        break;
-      case "SYMBOLS":
-        _appSettings.keys = _appSettings.symbols;
-        if((_appSettings.skin === "FUTURISTIC")&&(_appSettings.backgroundKey === "images/background_key_futuristic.png")){
-          _appSettings.backgroundKey = "images/background_key_futuristic_black.png";
-        }
-        _appSettings.backgroundKeys = new Array(12).fill(_appSettings.backgroundKey);
-        break;
-      default:
-        //NUMBERS
-        _appSettings.keys = _appSettings.numbers;
-        _appSettings.backgroundKeys = new Array(12).fill(_appSettings.backgroundKey);
-    }
-
     //Init internacionalization module
     I18n.init(_appSettings);
 
@@ -101,8 +82,6 @@ export default function App() {
 
     //Preload resources (if necessary)
     Utils.preloadImages([_appSettings.backgroundMessage]);
-    //Utils.preloadAudios([_appSettings.soundBeep,_appSettings.soundNok,_appSettings.soundOk]); //Preload done through HTML audio tags
-    //Utils.preloadVideos(["videos/some_video.mp4"]);
 
     return _appSettings;
   }
@@ -203,8 +182,8 @@ export default function App() {
     }
   }
 
-  function onKeypadSolved(_solution){
-    Utils.log("onKeypadSolved with solution:", _solution);
+  function onSafeboxSolved(_solution){
+    Utils.log("onSafeboxSolved with solution:", _solution);
     if(typeof _solution !== "string"){
       return;
     }
@@ -251,7 +230,7 @@ export default function App() {
   let screens = [
     {
       id: MAIN_SCREEN,
-      content: <MainScreen appHeight={appHeight} appWidth={appWidth} onKeypadSolved={onKeypadSolved} />
+      content: <MainScreen appHeight={appHeight} appWidth={appWidth} onSafeboxSolved={onSafeboxSolved} />
     },
     {
       id: MESSAGE_SCREEN,

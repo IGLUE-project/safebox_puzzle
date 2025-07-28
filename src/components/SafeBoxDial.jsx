@@ -3,12 +3,11 @@ import { useState, useEffect, useContext } from 'react';
 import { GlobalContext } from "./GlobalContext";
 
 const  SafeBoxDial = ( props ) => {
-    const {  appSettings } = useContext(GlobalContext);
+    const { appSettings } = useContext(GlobalContext);
     const [initialRotation, setInitialRotation] = useState(0); // Ángulo inicial del lock
     const [isMouseDown, setIsMouseDown] = useState(false); // Estado para saber si el mouse está presionado
     const [startAngle, setStartAngle] = useState(0); // Ángulo inicial del ratón
     const [rotationDirection, setRotationDirection] = useState(""); // Dirección de rotación
-
 
     const handleMouseMove = (event) => {
         if (!isMouseDown || props.checking || props.isReseting) return ;  
@@ -19,19 +18,20 @@ const  SafeBoxDial = ( props ) => {
         const rotationDir = getRotationDirection(props.rotationAngle/6, newRotation/6);
         if(rotationDirection === ''){
           setRotationDirection(rotationDir);
-        }else if(rotationDirection !== rotationDir){
-          return;}
-        if(props.rotationAngle === newRotation)return;
-        props.setRotationAngle(newRotation);     
+        } else if(rotationDirection !== rotationDir){
+          return;
+        }
+        if(props.rotationAngle === newRotation) return;
+        props.setRotationAngle(newRotation); 
         audio.play();
-    };
+    }
 
     const handleMouseUp = () => {
         if (props.checking || props.isReseting ) return ;
         setIsMouseDown(false); 
         props.setSolutionArray((sol) => [...sol, (rotationDirection === "clockwise" ? String(props.rotationAngle/6) : String('-'+props.rotationAngle/6))]);
         setRotationDirection(''); 
-    };
+    }
 
     const handleMouseDown = (event) => {
         if (props.checking || props.isReseting) return ;
@@ -39,7 +39,7 @@ const  SafeBoxDial = ( props ) => {
         let rounded = calculateAngle(event); 
         setStartAngle(rounded);     
         setInitialRotation(props.rotationAngle);   
-      };
+    }
 
     const calculateAngle = (event) => {
         const lockElement = document.getElementById("lock");
@@ -51,7 +51,7 @@ const  SafeBoxDial = ( props ) => {
         if (angle < 0) {
           angle += 360;}
         return Math.round(angle / 6) * 6;
-      }
+    }
 
     function getRotationDirection(prev, curr) {
         const diff = (curr - prev + 60) % 60;
@@ -61,10 +61,11 @@ const  SafeBoxDial = ( props ) => {
 
     const normalizeAngleDifference = (angle) => {
         return ((angle + 180) % 360) - 180;
-    };    
+    }
+
     const normalizeAngle = (angle) => {
         return ((angle % 360) + 360) % 360; // Asegura que el ángulo esté entre 0 y 360
-    };
+    }
 
     const reset = () => {
         setStartAngle(0);
@@ -74,7 +75,8 @@ const  SafeBoxDial = ( props ) => {
     useEffect(() => {    
         if (props.isReseting) { 
             reset(); 
-        }}, [props.isReseting]); 
+        }
+    }, [props.isReseting]); 
 
     return(
         <div className='lockContainer' style={{ width: props.boxWidth, height: props.boxHeight, 
@@ -89,7 +91,7 @@ const  SafeBoxDial = ( props ) => {
             (props.light === "ok" ? 
               <div className='lockFuture' style={{ zIndex:4 , backgroundColor: '#3bff77', width: props.boxWidth*0.43, height: props.boxHeight*0.53, borderRadius: '50%'}}></div> 
             : <div className='lockFuture' style={{ zIndex:4 , backgroundColor: '#fe3a43', width: props.boxWidth*0.43, height: props.boxHeight*0.53, borderRadius: '50%'}}></div>)}
-            <audio id="audio_wheel" src={appSettings.soundDial} autostart="false" preload="auto" />    
+            <audio id="audio_wheel" src={appSettings.soundDial} autostart="false" preload="auto" />
         </div>
     );
 }

@@ -5,25 +5,22 @@ import SafeBoxDial from './SafeBoxDial.jsx';
 
 const MainScreen = (props) => {
   const { escapp, appSettings, Utils, I18n } = useContext(GlobalContext);
-  const [solutionArray, setSolutionArray] = useState([]); // Array para guardar la solución
+  const [solutionArray, setSolutionArray] = useState([]);
   const [processingSolution, setProcessingSolution] = useState(false);
   const [light, setLight] = useState("off");
-  const [containerWidth, setContainerWidth] = useState(0);//
-  const [containerHeight, setContainerHeight] = useState(0);//
-  const [containerMarginTop, setContainerMarginTop] = useState(0);//
-  const [containerMarginLeft, setContainerMarginLeft] = useState(0);//
+  const [containerWidth, setContainerWidth] = useState(0);
+  const [containerHeight, setContainerHeight] = useState(0);
+  const [containerMarginTop, setContainerMarginTop] = useState(0);
+  const [containerMarginLeft, setContainerMarginLeft] = useState(0);
   const [boxWidth, setBoxWidth] = useState(0);
   const [boxHeight, setBoxHeight] = useState(0);
-  const [lightWidth, setLightWidth] = useState(0); //
-  const [lightHeight, setLightHeight] = useState(0); //
-  const [lightLeft, setLightLeft] = useState(0);//
-  const [lightTop, setLightTop] = useState(0);//
-
-  //
-  const [rotationAngle, setRotationAngle] = useState(0); // Estado para la rotación
-  const [isReseting, setIsReseting] = useState(false); // Estado para saber si se está reiniciando el lock
-
-  //
+  const [lightWidth, setLightWidth] = useState(0);
+  const [lightHeight, setLightHeight] = useState(0);
+  const [lightLeft, setLightLeft] = useState(0);
+  const [lightTop, setLightTop] = useState(0);
+  const [dialFontSize, setDialFontSize] = useState(0);
+  const [rotationAngle, setRotationAngle] = useState(0);
+  const [isReseting, setIsReseting] = useState(false);
 
   useEffect(() => {
     handleResize();
@@ -44,7 +41,6 @@ const MainScreen = (props) => {
     let _containerWidth = _lockWidth *0.8;
     let _containerHeight = _lockHeight *0.8;
 
-
     let _containerMarginLeft=0;
     let _containerMarginTop=0;
 
@@ -56,7 +52,7 @@ const MainScreen = (props) => {
     let _lightLeft;
     let _lightTop;
 
-
+    let _dialFontSize;
 
     switch(appSettings.skin){
       case "RETRO":
@@ -66,22 +62,24 @@ const MainScreen = (props) => {
         _lightHeight = _lockHeight *0.18;
         _lightLeft = _lockWidth * 0;
         _lightTop =  _lockHeight * -0.14;
+        _dialFontSize = _containerWidth * 0.05;
         break;
       case "FUTURISTIC":
         _containerMarginTop = 0;
         _containerHeight = _lockHeight *0.605;
          _lightWidth = _lockWidth*0.9;
         _lightHeight = _lockHeight*0.6;
+        _dialFontSize = _containerWidth * 0.09;
         _boxHeight = _lockHeight * 0.9;
         _boxWidth = _lockWidth * 0.9;
-
         break;
       default:
         //Standard skin
         _lightWidth = _lockWidth * 0.08;
         _lightHeight = _lockHeight * 0.08;
         _lightLeft =  _lockWidth  * 0.7;
-        _lightTop =  _lockHeight  * 0.1
+        _lightTop =  _lockHeight  * 0.1;
+        _dialFontSize = _containerWidth * 0.1;
     }
 
     setContainerWidth(_containerWidth);
@@ -96,9 +94,9 @@ const MainScreen = (props) => {
     setLightHeight(_lightHeight);
     setLightLeft(_lightLeft);
     setLightTop(_lightTop);
+
+    setDialFontSize(_dialFontSize);
   }
-
-
 
   const checkSolution = () => {
     setProcessingSolution(true);
@@ -137,7 +135,7 @@ const MainScreen = (props) => {
         setLight("off");
         setProcessingSolution(false);
       }else{
-        props.onKeypadSolved(solution); //Cambiar
+        props.onSafeboxSolved(solution);
       }
     }, afterChangeBoxLightDelay);
 
@@ -149,7 +147,6 @@ const MainScreen = (props) => {
   if(appSettings.background && appSettings.background !== "NONE"){
     backgroundImage += ', url("' + appSettings.background + '")';
   }
-
 
   const  reset = () =>{
     setIsReseting(true);
@@ -173,26 +170,23 @@ const MainScreen = (props) => {
           justifyContent: "center", flexDirection: "column"
         }}>
         <SafeBoxDial boxWidth={boxWidth} boxHeight={boxHeight} checking={processingSolution} 
-              rotationAngle={rotationAngle} setRotationAngle={setRotationAngle}
-              setSolutionArray={setSolutionArray} isReseting={isReseting} light={light}/>
-              
-      
-      <div className="boxLight boxLight_off" style={{ visibility: light === "off" ? "visible" : "hidden", opacity: light === "off" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightOff + '")', left: lightLeft, top: lightTop }} ></div> 
-      <div className="boxLight boxLight_nok" style={{ visibility: light === "nok" ? "visible" : "hidden", opacity: light === "nok" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightNok + '")', left: lightLeft, top: lightTop }} ></div> 
-      <div className="boxLight boxLight_ok" style={{ visibility: light === "ok" ? "visible" : "hidden", opacity: light === "ok" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightOk + '")', left: lightLeft, top: lightTop }} ></div>
-      <audio id="audio_beep" src={appSettings.soundBeep} autostart="false" preload="auto" />
-      <audio id="audio_failure" src={appSettings.soundNok} autostart="false" preload="auto" />
-      <audio id="audio_success" src={appSettings.soundOk} autostart="false" preload="auto" />
+          rotationAngle={rotationAngle} setRotationAngle={setRotationAngle}
+          setSolutionArray={setSolutionArray} isReseting={isReseting} light={light}/>
+        <div className="boxLight boxLight_off" style={{ visibility: light === "off" ? "visible" : "hidden", opacity: light === "off" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightOff + '")', left: lightLeft, top: lightTop }} ></div> 
+        <div className="boxLight boxLight_nok" style={{ visibility: light === "nok" ? "visible" : "hidden", opacity: light === "nok" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightNok + '")', left: lightLeft, top: lightTop }} ></div> 
+        <div className="boxLight boxLight_ok" style={{ visibility: light === "ok" ? "visible" : "hidden", opacity: light === "ok" ? "1" : "0", width: lightWidth, height: lightHeight, backgroundImage: 'url("' + appSettings.imageLightOk + '")', left: lightLeft, top: lightTop }} ></div>
+        <audio id="audio_beep" src={appSettings.soundBeep} autostart="false" preload="auto" />
+        <audio id="audio_failure" src={appSettings.soundNok} autostart="false" preload="auto" />
+        <audio id="audio_success" src={appSettings.soundOk} autostart="false" preload="auto" />
       </div>
 
-      {appSettings.lightBack==="true" && <div className='lockFuture' style={{ zIndex:4 , backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, height: containerHeight,}}></div>}
-      {appSettings.skin === "RETRO" && <div className='retroBlackBackground' style={{width: containerWidth*appSettings.blackBackgroundSize+"px", height: containerWidth*appSettings.blackBackgroundSize+"px", }}/>}
-      <p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} style={{color: appSettings.dialTextColor, fontSize:containerWidth*appSettings.dialTextSize+"px", zIndex:5, 
-        fontFamily:appSettings.skin !== "STANDARD" && (appSettings.skin === "RETRO" ?"Winky Rough" : "Orbitron"), top: appSettings.skin === "FUTURISTIC" ? "49.2%" : "50%"}}> 
+      {appSettings.skin === "FUTURISTIC" && <div className='lockFuture' style={{ backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, height: containerHeight}}></div>}
+      
+      <p id="rotationNum" className='rotationNum' onDragStart={(event) => event.preventDefault()} style={{fontSize:dialFontSize+"px"}}> 
         {(appSettings.skin === "FUTURISTIC" && light !== "off") 
           ? (light === "ok" ? 
-            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"35%"}} height={containerWidth*appSettings.dialTextSize+"px"} viewBox="0 -960 960 960" width={containerWidth*appSettings.dialTextSize+"px"} fill="#3bff77"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> :
-            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"35%"}}  height={containerWidth*appSettings.dialTextSize+"px"} viewBox="0 -960 960 960" width={containerWidth*appSettings.dialTextSize+"px"} fill="#fe3a43"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>)
+            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"30%"}} height={dialFontSize+"px"} width={dialFontSize+"px"} viewBox="0 -960 960 960"  fill="#3bff77"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z"/></svg> :
+            <svg xmlns="http://www.w3.org/2000/svg" style={{marginTop:"30%"}} height={dialFontSize+"px"} width={dialFontSize+"px"} viewBox="0 -960 960 960" fill="#fe3a43"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>)
           : rotationAngle/6} 
       </p> 
  

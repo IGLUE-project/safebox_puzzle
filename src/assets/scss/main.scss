@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
 div#screen_main {
 	background-position: center;
 	background-repeat: no-repeat;
@@ -9,7 +10,6 @@ div#screen_main {
 	justify-content: center;
 	position: relative;
 }
-
 
 div.boxLight {
 	position: absolute;
@@ -27,9 +27,6 @@ div.retro div.boxLight {
 	transition: opacity 2.5s ease, visibility ease 2.5s;
 }
 
-
-///////
-
 .lockContainer{
 	background-position: center;
 	background-repeat: no-repeat;
@@ -37,10 +34,7 @@ div.retro div.boxLight {
 	display: flex;
 	position: absolute;
 	transform: (-50%, - 50px); 
-	
-
 }
-
 
 div#lock{
 	background-position: center;
@@ -52,7 +46,9 @@ div#lock{
 	cursor: pointer;
 	transform: (-50%, - 50px); // Centra el lock en la pantalla
 }
+
 div.lockFuture{
+	z-index: 4;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: contain;
@@ -62,25 +58,29 @@ div.lockFuture{
 	transform: (-50%, - 50px); // Centra el lock en la pantalla
 }
 
-
 p#rotationNum{
 	position: absolute;
 	z-index: 10;
-	top: 50%; // Centra verticalmente
+	top: 50%;
 	left: 50%; 
-	transform: translate(-50%, -50%); // Ajusta el centrado
+	transform: translate(-50%, -50%);
 	margin: 0; 
 	pointer-events: none; 
-	user-select: none; // Evita que el texto sea seleccionable
+	user-select: none;
 	font-style: bold; 
-	font-family: sans-serif;
+	font-family: "Orbitron", sans-serif;
 }
 
-.retroBlackBackground{
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	background-color: rgba(0, 0, 0, 0.596);
-	border-radius: 50%;
+div.futuristic p#rotationNum{
+	color: #0fbdfd;
+	font-family: "Orbitron", sans-serif;
+	top: 49.2%;
+	left: 50.05%;
+}
+
+div.retro p#rotationNum{
+	font-family: "Winky Rough", sans-serif;
+	color: white;
+	top: 49.7%;
+	left: 50.07%;
 }

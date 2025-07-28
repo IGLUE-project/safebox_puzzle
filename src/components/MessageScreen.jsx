@@ -29,12 +29,17 @@ const MessageScreen = (props) => {
 
     switch(appSettings.skin){
       case "RETRO":
-        _containerWidth = _keypadWidth * 0.4;
-        _containerHeight = _keypadHeight * 0.4;
-        _containerMarginRight = 0;
-        _containerMarginTop = - _keypadHeight * 0.05;
+        _containerWidth = _keypadWidth * 0.75;
+        _containerHeight = _keypadHeight * 0.65;
+        _containerMarginRight = - _keypadWidth * 0.01;
+        _containerMarginTop = _keypadHeight * 0;
         break;
       case "FUTURISTIC":
+        _containerWidth = _keypadWidth * 0.75;
+        _containerHeight = _keypadHeight * 0.58;
+        _containerMarginRight = _keypadWidth * 0;
+        _containerMarginTop = _keypadHeight * 0;
+        break;
       default:
         //Standard skin
         _containerWidth = _keypadWidth * 0.49;

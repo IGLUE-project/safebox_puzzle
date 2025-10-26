@@ -158,8 +158,10 @@ const MainScreen = (props) => {
     }, 2500);
   }
 
-  useEffect(() => {        
-      solutionArray.length >= appSettings.solutionLength && checkSolution();
+  useEffect(() => {
+      if(typeof appSettings.solutionLength === "number" && appSettings.solutionLength > 0 && solutionArray.length >= appSettings.solutionLength){
+        checkSolution();
+      }
   }, [solutionArray]);
 
   return (

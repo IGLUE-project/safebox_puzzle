@@ -7,7 +7,7 @@ export let ESCAPP_APP_SETTINGS = {
   //message: "Custom message",
 
   //Settings that will be automatically specified by the Escapp server
-  solutionLength: 4,
+  solutionLength: 3,
   locale:"es",
 
   escappClientSettings: {

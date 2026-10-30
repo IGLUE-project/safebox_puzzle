@@ -77,6 +77,16 @@ export default function App() {
       _appSettings.message = I18n.getTrans("i.message");
     }
 
+    if (typeof _appSettings.backgroundImg === "string" && _appSettings.backgroundImg.trim() !== "") {
+      if(_appSettings.backgroundImg !== "NONE"){
+        _appSettings.backgroundImageProp = `url("${_appSettings.backgroundImg}")`;
+        _appSettings.backgroundRepeat = "no-repeat";
+        _appSettings.backgroundSize = "100% 100%";
+      } else {
+        _appSettings.backgroundColor = "transparent";
+      }
+    }
+
     //Change HTTP protocol to HTTPs in URLs if necessary
     _appSettings = Utils.checkUrlProtocols(_appSettings);
 
@@ -238,8 +248,24 @@ export default function App() {
     }
   ];
 
+  let globalWrapperStyle = {};
+  if(appSettings !== null && typeof appSettings.backgroundImageProp === "string"){
+    globalWrapperStyle = {
+      backgroundImage: appSettings.backgroundImageProp,
+      backgroundRepeat: appSettings.backgroundRepeat,
+      backgroundSize: appSettings.backgroundSize,
+    }
+  } else if(appSettings !== null && typeof appSettings.backgroundColor === "string"){
+    globalWrapperStyle = {
+      backgroundColor: appSettings.backgroundColor
+    }
+  }
+
   return (
-    <div id="global_wrapper" className={`${(appSettings !== null && typeof appSettings.skin === "string") ? appSettings.skin.toLowerCase() : ''}`}>
+    <div id="global_wrapper" 
+      className={`${(appSettings !== null && typeof appSettings.skin === "string") ? appSettings.skin.toLowerCase() : ''}`}
+      style={globalWrapperStyle}
+    >
       {renderScreens(screens)}
     </div>
   )

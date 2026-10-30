@@ -144,10 +144,6 @@ const MainScreen = (props) => {
 
   //Background
   let backgroundImage = 'url("' + appSettings.backgroundSafebox + '")';
-  // Custom background not available for safebox puzzles
-  // if(appSettings.background && typeof appSettings.background !== "undefined" && appSettings.background !== "NONE"){
-  //   backgroundImage += ', url("' + appSettings.background + '")';
-  // }
   
   const  reset = () =>{
     setIsReseting(true);
@@ -165,7 +161,7 @@ const MainScreen = (props) => {
   }, [solutionArray]);
 
   return (
-    <div id="screen_main" className={"screen_content"} style={{ backgroundImage: backgroundImage, backgroundColor: appSettings.backgroundColor }}>
+    <div id="screen_main" className={"screen_content"} style={{ backgroundImage: backgroundImage }}>
       <div id="lockContainer" className="lockContainer" 
         style={{backgroundImage: 'url('+appSettings.backgroundLock+')', width: containerWidth, 
           height: containerHeight, marginTop: containerMarginTop, marginLeft: containerMarginLeft ,
